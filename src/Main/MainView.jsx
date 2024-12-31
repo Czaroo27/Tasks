@@ -76,6 +76,8 @@ export default function MainView() {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
+  console.log("setNewTask in MainView:", setNewTask);
+
   return (
     <React.Fragment>
       <div className="flex h-svh relative">

@@ -56,7 +56,6 @@ export default function Sidebar({
 
   return (
     <React.Fragment>
-      <TaskList pockets={pockets} />
       <div className="rounded-md flex flex-col justify-between px-6 py-10 h-full lg:w-[350px] w-[80px] bg-white">
         {/* Pockets Section */}
         <div className="mb-4 lg:block hidden">

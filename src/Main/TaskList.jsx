@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NoPockets from "./NoPockets";
+import MainView from "./MainView";
 import { MdEdit } from "react-icons/md";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { Button, Checkbox, Input } from "@nextui-org/react";
@@ -14,14 +15,15 @@ export default function TaskList({
   currentPocket,
   editTask,
   deleteTask,
+  pockets,
 }) {
   const [showCompleted, setShowCompleted] = useState(false);
 
   useEffect(() => {
     if (!currentPocket) {
-      setNewTask("");
+      setNewTask(""); // Funkcja setNewTask
     }
-  }, [currentPocket]);
+  }, [currentPocket, setNewTask]); // Dodaj setNewTask do tablicy zależności
 
   if (!currentPocket) {
     return <NoPockets />;
@@ -51,6 +53,7 @@ export default function TaskList({
   const handleCheckboxChange = (taskId) => {
     toggleTaskCompletion(taskId);
   };
+  console.log("skurwysyny" + pockets);
 
   return (
     <React.Fragment>
