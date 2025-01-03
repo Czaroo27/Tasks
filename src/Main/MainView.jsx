@@ -9,7 +9,7 @@ export default function MainView() {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
-  const [newTask, setNewTask] = useState("");
+  const [taskText, setTaskText] = useState(""); // Treść zadania
   const [pockets, setPockets] = useState(() => {
     const savedPockets = localStorage.getItem("pockets");
     return savedPockets ? JSON.parse(savedPockets) : [];
@@ -34,16 +34,17 @@ export default function MainView() {
     }
   }, [pockets]);
 
-  const addTask = () => {
-    if (newTask.trim() !== "") {
-      const newTaskObject = {
+  // Funkcja dodająca zadanie
+  const addTask = (taskText, selectedPocket) => {
+    if (taskText.trim() && selectedPocket) {
+      const newTask = {
         id: Date.now(),
-        text: newTask,
+        text: taskText,
         completed: false,
-        pocket: currentPocket.name,
+        pocket: selectedPocket.name,
       };
-      setTasks((prevTasks) => [...prevTasks, newTaskObject]);
-      setNewTask("");
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+      setTaskText(""); // Resetowanie pola tekstowego
     }
   };
 
@@ -76,8 +77,6 @@ export default function MainView() {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
-  console.log("setNewTask in MainView:", setNewTask);
-
   return (
     <React.Fragment>
       <div className="flex h-svh relative">
@@ -92,12 +91,19 @@ export default function MainView() {
           onOpenChange={onOpenChange}
         />
         <TaskList
+          pockets={pockets}
+          setPockets={setPockets}
+          setCurrentPocket={setCurrentPocket}
+          currentPocket={currentPocket}
+          deleteTasksForPocket={deleteTasksForPocket}
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onOpenChange={onOpenChange}
           tasks={tasks}
-          newTask={newTask}
-          setNewTask={setNewTask}
+          taskText={taskText}
+          setTaskText={setTaskText}
           addTask={addTask}
           toggleTaskCompletion={toggleTaskCompletion}
-          currentPocket={currentPocket}
           editTask={editTask}
           deleteTask={deleteTask}
         />

@@ -18,8 +18,6 @@ export default function Sidebar({
 }) {
   const [hoveredPocket, setHoveredPocket] = useState(null);
 
-  console.log(pockets);
-
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.ctrlKey && event.key === "p") {
@@ -27,6 +25,10 @@ export default function Sidebar({
         onOpen();
       }
     };
+
+    const activeTasks = tasks.filter(
+      (task) => task.pocket === currentPocket?.name && !task.completed
+    );
 
     window.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -67,7 +69,7 @@ export default function Sidebar({
                 key={index}
                 className={`flex items-center justify-between cursor-pointer h-9 mb-3 px-1 py-1.5 hover:bg-[#f0f0f0] group hover:rounded-md ${
                   pocket.name === currentPocket?.name &&
-                  "bg-[#6529FE] rounded text-white hover:!bg-blue-600"
+                  "bg-[#6529FE] rounded text-white hover:!bg-[#3B0EDB]"
                 }`}
                 onClick={() => setCurrentPocket(pocket)}
                 onMouseEnter={() => setHoveredPocket(pocket.name)}
@@ -108,7 +110,7 @@ export default function Sidebar({
               key={index}
               className={`flex items-center justify-center cursor-pointer h-12 w-12 mb-4 hover:bg-[#f0f0f0] rounded-md	 ${
                 pocket.name === currentPocket?.name &&
-                "bg-[#6529FE] text-white hover:!bg-blue-600"
+                "bg-[#6529FE] text-white hover:bg-[#3B0EDB]"
               }`}
               onClick={() => setCurrentPocket(pocket)}
             >
@@ -129,7 +131,7 @@ export default function Sidebar({
         <div className="flex w-full mt-4 items-center lg:flex-row flex-col lg:justify-start justify-center">
           <Avatar
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-            size="lg"
+            size="mb"
             className="cursor-pointer hover:scale-105 transition-transform"
           />
           <div className="ml-2 lg:block hidden">

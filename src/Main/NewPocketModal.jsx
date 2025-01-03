@@ -117,7 +117,7 @@ export default function NewPocketModal({
                   Close
                 </Button>
                 <Button
-                  color="primary"
+                  className="bg-[#6529FE] text-white hover:bg-[#4a1ecf]"
                   onPress={() => {
                     addPocket();
                     onClose();
